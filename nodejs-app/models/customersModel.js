@@ -2,8 +2,7 @@ import db from './db.js';
 
 async function getCustomers() {
   try {
-    const users = await db.select('*').from('Customers');
-    return users;
+    return await db.select('*').from('Customers');
   } catch (error) {
     console.error('Error fetching customers:', error);
     throw error;
