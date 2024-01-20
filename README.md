@@ -1,1 +1,1 @@
-# project using ant desgin and knexjs
+# The project applies ant design and knexjs
