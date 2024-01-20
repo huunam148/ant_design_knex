@@ -1,6 +1,6 @@
 import express from "express";
-import dotenv from 'dotenv';
-import routes from './routes/index.js';
+import dotenv from "dotenv";
+import routes from "./routes/index.js";
 import bodyParser from "body-parser";
 import cors from "cors";
 
@@ -13,7 +13,7 @@ const corsOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   optionsSuccessStatus: 204,
-  maxAge: 63072000
+  maxAge: 63072000,
 };
 
 app.use(cors(corsOptions));
@@ -24,4 +24,3 @@ routes(app);
 app.listen(port, () => {
   console.log(`Server is running on port http://localhost:${port}`);
 });
-
