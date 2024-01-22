@@ -1,4 +1,3 @@
-// import customersRouter from './customer.js'
 import customerController from '../controllers/CustomerController.js'
 
 function routes(app){
@@ -6,7 +5,6 @@ function routes(app){
   app.put('/customers/:id', customerController.update);
   app.post('/customers', customerController.create);
   app.delete('/customers/:id', customerController.destroy);
-
 }
 
 export default routes;

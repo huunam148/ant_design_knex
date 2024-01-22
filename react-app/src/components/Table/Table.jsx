@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Form, Input, InputNumber, Popconfirm, Table, Typography } from "antd";
 import axios from "axios";
-import { Button, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import React, { useState, useEffect } from "react";
+import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal } from "antd";
 
 const EditableCell = ({
   editing,
@@ -44,9 +43,11 @@ const App = ({ customers, fetchData }) => {
   const [data, setData] = useState([]);
   const [editingKey, setEditingKey] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const showModal = () => {
     setIsModalOpen(true);
   };
+
   const handleCancel = () => {
     form.resetFields();
     setIsModalOpen(false);
@@ -97,7 +98,7 @@ const App = ({ customers, fetchData }) => {
         const customerId = newData[editingKey].customer_id;
         console.log("customerId:", customerId);
         const response = await axios.put(
-          `http://localhost:8000/customers/${customerId}`,
+          `${process.env.REACT_APP_URL}/customers/${customerId}`,
           newData[editingKey]
         );
         console.log("put method: ", response);
@@ -119,7 +120,7 @@ const App = ({ customers, fetchData }) => {
       if (index > -1) {
         const customerId = newData[index].customer_id;
         const response = await axios.delete(
-          `http://localhost:8000/customers/${customerId}`
+          `${process.env.REACT_APP_URL}/customers/${customerId}`
         );
         console.log("delete method:", response);
         newData.splice(index, 1);
@@ -238,7 +239,7 @@ const App = ({ customers, fetchData }) => {
     try {
       // console.log("customer profile:", values);
       const response = await axios.post(
-        `http://localhost:8000/customers/`,
+        `${process.env.REACT_APP_URL}/customers/`,
         values
       );
       console.log("post customer", response);
@@ -292,6 +293,7 @@ const App = ({ customers, fetchData }) => {
         onCancel={handleCancel}
       >
         <Form
+          form={form}
           name="addCustomer"
           labelCol={{ span: 7 }}
           layout="vertical"

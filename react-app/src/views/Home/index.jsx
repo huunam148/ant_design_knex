@@ -43,7 +43,7 @@ const App = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/customers`);
+      const response = await axios.get(`${process.env.REACT_APP_URL}/customers`);
       setData(response.data.data);
       // console.log('data show: ', response.data.data);
     } catch (error) {
