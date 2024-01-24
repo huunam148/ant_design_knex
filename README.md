@@ -1,1 +1,6 @@
-# The project applies ant design and knexjs
+# The project applies:
+## - react
+## - nodejs
+## - ant design 
+## - knexjs
+## - keyloack

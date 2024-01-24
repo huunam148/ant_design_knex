@@ -1,0 +1,10 @@
+{
+  "realm": "ReactNodeProject",
+  "auth-server-url": "http://localhost:8080",
+  "ssl-required": "external",
+  "resource": "nodeClient",
+  "credentials": {
+    "secret": "1bXvbYsdIgoAa7YeGtPfxyCkqyIK4uWQ"
+  },
+  "confidential-port": 0
+}
