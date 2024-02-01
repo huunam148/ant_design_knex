@@ -28,27 +28,39 @@ async function putCustomers(id, updatedItem) {
 async function postCustomers(updatedItem) {
   try {
     const { customer_name, email, phone_number } = updatedItem;
-
-    const existingCustomer = await knex("Customers")
+    
+    const existingEmail = await knex("Customers")
       .where("email", email)
       .first();
+    
+    const existingPhone = await knex("Customers")
+      .where("phone_number", phone_number)
+      .first();
 
-    if (existingCustomer) {
-      throw new Error("Customer already exists!");
+    if (existingEmail) {
+      return {
+        success: false,
+        message: "Email already exists",
+      };
     }
+    else if (existingPhone) {
+      return {
+        success: false,
+        message: "Phone number already exists",
+      };
+    } else {
+        const [insertedCustomerId] = await knex("Customers")
+        .insert({ customer_name, email, phone_number })
+        .returning("customer_id");
 
-    const [insertedCustomerId] = await knex("Customers")
-      .insert({ customer_name, email, phone_number })
-      .returning("customer_id");
-
-    return {
-      success: true,
-      message: "Customer added successfully",
-      insertedCustomerId,
-      updatedItem,
-    };
+        return {
+          success: true,
+          message: "Customer added successfully",
+          insertedCustomerId,
+          updatedItem,
+        };
+    }
   } catch (error) {
-    console.error("Error postCustomers:", error.message);
     throw {
       success: false,
       message: "Failed to add customer",

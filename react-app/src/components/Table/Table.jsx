@@ -1,7 +1,7 @@
 import axios from "axios";
 import { PlusOutlined } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
-import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Modal } from "antd";
+import { Form, Input, InputNumber, Popconfirm, message, Table, Typography, Button, Modal } from "antd";
 
 const EditableCell = ({
   editing,
@@ -43,6 +43,20 @@ const App = ({ customers, fetchData }) => {
   const [data, setData] = useState([]);
   const [editingKey, setEditingKey] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  
+  const success = (value) => {
+    messageApi.open({
+      type: 'success',
+      content: value,
+    });
+  };
+  const error = (value) => {
+    messageApi.open({
+      type: 'error',
+      content: value,
+    });
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -237,20 +251,23 @@ const App = ({ customers, fetchData }) => {
 
   const handlerAddCustomer = async (values) => {
     try {
-      // console.log("customer profile:", values);
       const response = await axios.post(
         `${process.env.REACT_APP_URL}/customers/`,
         values
       );
-      console.log("post customer", response);
+      console.log("AddCustomer response ------>", response.data.message);
       fetchData();
+      success(response.data.message);
+      setIsModalOpen(false);
+      form.resetFields();
+      
     } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
+      console.log("AddCustomer errInfo ------>", errInfo.response.data.message);
+      error(errInfo.response.data.message);
     }
   };
 
   const onFinish = (values) => {
-    setIsModalOpen(false);
     handlerAddCustomer(values);
     // console.log("Success:", values);
   };
@@ -261,6 +278,7 @@ const App = ({ customers, fetchData }) => {
 
   return (
     <Form form={form} component={false}>
+      {contextHolder}
       <Button
         type="primary"
         onClick={showModal}

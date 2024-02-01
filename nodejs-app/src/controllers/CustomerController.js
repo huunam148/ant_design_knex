@@ -55,7 +55,7 @@ class CustomersController {
       const query = await postCustomers(updatedItem);
       if (query.success) {
         res.status(200).json({
-          message: 'POST customers successfully',
+          message: 'Successfully added customers',
           updatedItem: updatedItem,
         });
       } else {
