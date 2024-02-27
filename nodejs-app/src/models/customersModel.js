@@ -1,9 +1,13 @@
 import knex from "./db.js";
 
-async function getCustomers() {
+async function getCustomers(body) {
   try {
-    const customers = await knex.select("*").from("Customers");
-    return customers;
+    const id = body.CusID;
+    return await 
+    knex.select("*")
+    .from("Customers")
+    // .where("CusID", id);
+    // knex.raw('SELECT * FROM Customers WHERE CusID = ?', [id]);
   } catch (error) {
     console.error("Error fetching customers:", error);
     throw error;

@@ -4,7 +4,7 @@ class CustomersController {
   // [GET] /customers
   async show (req, res) {
     try {
-      const customers = await getCustomers();
+      const customers = await getCustomers(req.body);
       res.status(200).json({
         message: 'Get customers successfully',
         data: customers,

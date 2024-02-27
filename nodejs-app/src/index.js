@@ -8,7 +8,7 @@ import Keycloak from "keycloak-connect";
 
 dotenv.config();
 const app = express();
-const port = process.env.PORT || 8000;
+const port = 8001 || process.env.PORT;
 const corsOptions = {
   origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",

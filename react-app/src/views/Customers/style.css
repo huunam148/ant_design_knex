@@ -1,0 +1,5 @@
+.container_cus {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
